@@ -95,10 +95,23 @@ public class UsuarioController {
 	
 	@ApiOperation(value = "Obtener productos", notes = "Este servicio web obtiene los productos.", response = Producto.class, responseContainer = "Usuario")
 	@GetMapping("/obtenerProductos")
-	public ResponseEntity<List<Producto>> obtenerProductos(){
+	public ResponseEntity<List<Producto>> obtenerProductos(@ApiParam(value = "buscador", required = false) @RequestParam(required = false) String buscador){
 		
 		//Usuario usuario = usuarioService.obtenerUsuario(email).orElse(null);
+		if(buscador != null && !buscador.equals("null") && !buscador.trim().equals("")) {
+			return ResponseEntity.ok(productoService.obtenerListaProductosBuscador(buscador));
+		}
+		return ResponseEntity.ok(productoService.obtenerListaProductos());
+	}
+	
+	@ApiOperation(value = "Obtener productos por categoria", notes = "Este servicio web obtiene los productos filtrados por subcategoria.", response = Producto.class, responseContainer = "Usuario")
+	@GetMapping("/obtenerProductosBySubCategoria")
+	public ResponseEntity<List<Producto>> obtenerProductosBySubCategoria(@ApiParam(value = "subCategoria", required = false) @RequestParam(required = false) String subCategoria){
 		
+		//Usuario usuario = usuarioService.obtenerUsuario(email).orElse(null);
+		if(subCategoria != null && !subCategoria.equals("null") && !subCategoria.trim().equals("")) {
+			return ResponseEntity.ok(productoService.obtenerListaProductosBySubCategoria(subCategoria));
+		}
 		return ResponseEntity.ok(productoService.obtenerListaProductos());
 	}
 	

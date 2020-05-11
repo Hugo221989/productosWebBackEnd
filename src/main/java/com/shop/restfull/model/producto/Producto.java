@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shop.restfull.model.Cesta;
 import com.shop.restfull.model.Pedido;
 import com.shop.restfull.model.Sabor;
@@ -45,6 +46,8 @@ public class Producto implements Serializable{
 	@Column(name = "sabor_seleccionado")
 	private String saborSeleccionado;
 	
+	private Integer cantidad;
+	
 	private Double puntuacion;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "productos", fetch = FetchType.LAZY)
@@ -71,7 +74,17 @@ public class Producto implements Serializable{
 	
 	@ManyToMany(mappedBy = "productos")
     private List<Cesta> cesta;
+	
+	@ManyToOne
+	@JoinColumn(name = "FK_CATEGORIA_PRODUCT", referencedColumnName = "id")
+	@JsonIgnore
+	private Categoria categoria;
 
+	@ManyToOne
+	@JoinColumn(name = "FK_SUB_CATEGORIA_PRODUCT", referencedColumnName = "id")
+	@JsonIgnore
+	private SubCategoria subCategoria;
+	
 	public int getId() {
 		return id;
 	}
@@ -200,5 +213,29 @@ public class Producto implements Serializable{
 		this.precioFinal = precioFinal;
 	}
 
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public SubCategoria getSubCategoria() {
+		return subCategoria;
+	}
+
+	public void setSubCategoria(SubCategoria subCategoria) {
+		this.subCategoria = subCategoria;
+	}
+	
 	
 }

@@ -18,4 +18,12 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer>{
 	@Transactional
 	@Query("SELECT p FROM Producto p")
 	public Optional<List<Producto>> findRelatedProducts(Pageable pageable);
+	
+	@Transactional
+	@Query("SELECT p FROM Producto p WHERE p.nombre LIKE CONCAT('%',?1,'%')")
+	public Optional<List<Producto>> findProductsByBuscador(String buscador);
+	
+	@Transactional
+	@Query("SELECT p FROM Producto p WHERE p.subCategoria.key = ?1")
+	public Optional<List<Producto>> findProductsBySubCategoria(String subCategoria);
 }

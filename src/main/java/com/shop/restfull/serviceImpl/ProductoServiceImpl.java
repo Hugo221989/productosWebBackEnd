@@ -34,5 +34,17 @@ public class ProductoServiceImpl implements IProductoService {
 		return this.productoRepository.findRelatedProducts(pageable).orElse(null);
 	}
 
+	@Override
+	public List<Producto> obtenerListaProductosBuscador(String buscador) {
+		// TODO Auto-generated method stub
+		return this.productoRepository.findProductsByBuscador(buscador).orElse(null);
+	}
+
+	@Override
+	public List<Producto> obtenerListaProductosBySubCategoria(String categoria) {
+		// TODO Auto-generated method stub
+		return this.productoRepository.findProductsBySubCategoria(categoria).orElse(null);
+	}
+
 
 }

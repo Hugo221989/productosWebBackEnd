@@ -10,6 +10,8 @@ import com.shop.restfull.model.producto.Producto;
 public interface IProductoService {
 	
 	public List<Producto> obtenerListaProductos();
+	public List<Producto> obtenerListaProductosBuscador(String buscador);
+	public List<Producto> obtenerListaProductosBySubCategoria(String categoria);
 	public List<Producto> obtenerListaProductosLimit5(Pageable pageable);
 	
 	public Optional<Producto> obtenerProductoById(int idProducto);
