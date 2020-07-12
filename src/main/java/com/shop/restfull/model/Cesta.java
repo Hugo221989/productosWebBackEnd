@@ -1,22 +1,21 @@
 package com.shop.restfull.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.shop.restfull.model.producto.Producto;
+import com.shop.restfull.model.producto.ProductoCesta;
 
 @Entity
 @Table(name = "cesta")
@@ -32,20 +31,20 @@ public class Cesta implements Serializable{
 	
 	private Integer cantidadProductos;
 	
-	private Integer precioTotal;
+	@Column(name="importe_total")
+	private Double importeTotal;
 	
-	@OneToOne
-    @JoinColumn(name = "FK_USUARIO", updatable = false, nullable = false)
+	@Column(name="importe_subtotal")
+	private Double importeSubTotal;
+	
+	private Double envio;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FK_USUARIO", updatable = false, nullable = false, unique = true)
     private Usuario usuario;
 	
-	@JoinTable(
-	        name = "rel_cesta_productos",
-	        joinColumns = @JoinColumn(name = "FK_CESTA", nullable = false),
-	        inverseJoinColumns = @JoinColumn(name="FK_PRODUCTO", nullable = false)
-	    )
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JsonIgnore
-    private List<Producto> productos;
+	@OneToMany(mappedBy = "cesta")
+    private Set<ProductoCesta> productosCesta;
 
 	public int getId() {
 		return id;
@@ -62,37 +61,60 @@ public class Cesta implements Serializable{
 	public void setCantidadProductos(Integer cantidadProductos) {
 		this.cantidadProductos = cantidadProductos;
 	}
-
-	public Integer getPrecioTotal() {
-		return precioTotal;
+	
+	public Double getImporteTotal() {
+		return importeTotal;
 	}
 
-	public void setPrecioTotal(Integer precioTotal) {
-		this.precioTotal = precioTotal;
+	public void setImporteTotal(Double importeTotal) {
+		this.importeTotal = importeTotal;
+	}
+
+	public Double getImporteSubTotal() {
+		return importeSubTotal;
+	}
+
+	public void setImporteSubTotal(Double importeSubTotal) {
+		this.importeSubTotal = importeSubTotal;
+	}
+
+	public Double getEnvio() {
+		return envio;
+	}
+
+	public void setEnvio(Double envio) {
+		this.envio = envio;
 	}
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
+	@JsonIgnore
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
-	public List<Producto> getProductos() {
-		return productos;
+	public Set<ProductoCesta> getProductosCesta() {
+		return productosCesta;
 	}
 
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
+	public void setProductosCesta(Set<ProductoCesta> productosCesta) {
+		this.productosCesta = productosCesta;
 	}
-	
-	public void addProductos(Producto producto){
-        if(this.productos == null){
-            this.productos = new ArrayList<>();
-        }
-        
-        this.productos.add(producto);
-    }
+
+	public void removeProductoCesta(ProductoCesta productoCesta) {
+		this.productosCesta.remove(productoCesta);
+		//productoCesta.getCesta().remove(this);
+	}
+	public void addPhone(ProductoCesta productoCesta) {
+	     if (productoCesta != null) {
+	        if (this.productosCesta == null) {
+	            this.productosCesta = new HashSet<ProductoCesta>();          
+	        }
+	        this.productosCesta.add(productoCesta);
+	        productoCesta.setCesta(this);
+	     }
+	  }
 
 }

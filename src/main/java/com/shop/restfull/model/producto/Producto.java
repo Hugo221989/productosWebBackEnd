@@ -1,6 +1,6 @@
 package com.shop.restfull.model.producto;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,25 +16,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.shop.restfull.model.Cesta;
 import com.shop.restfull.model.Pedido;
 import com.shop.restfull.model.Sabor;
 
 @Entity
 @Table(name = "producto")
-public class Producto implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+public class Producto{
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	private String nombre;
+	
+	@Column(name = "nombre_eng")
+	private String nombreEng;
 	
 	private Double precio;
 	
@@ -42,11 +39,6 @@ public class Producto implements Serializable{
 	
 	@ManyToMany(mappedBy = "productos")
 	private List<Sabor> sabores;
-	
-	@Column(name = "sabor_seleccionado")
-	private String saborSeleccionado;
-	
-	private Integer cantidad;
 	
 	private Double puntuacion;
 	
@@ -70,10 +62,17 @@ public class Producto implements Serializable{
 	private Descripcion descripcion;
 	
 	@ManyToMany(mappedBy = "productos")
+	@JsonIgnore
     private List<Pedido> pedidos;
 	
-	@ManyToMany(mappedBy = "productos")
-    private List<Cesta> cesta;
+	@OneToMany(mappedBy = "producto")
+	@JsonIgnore
+    private List<ProductoCesta> productosCesta = new ArrayList<>();
+
+	@ManyToOne
+	@JoinColumn(name = "FK_CAT_PADRE_PRODUCT", referencedColumnName = "id")
+	@JsonIgnore
+	private CategoriaPadre categoriaPadre;
 	
 	@ManyToOne
 	@JoinColumn(name = "FK_CATEGORIA_PRODUCT", referencedColumnName = "id")
@@ -124,15 +123,6 @@ public class Producto implements Serializable{
 	public void setSabores(List<Sabor> sabores) {
 		this.sabores = sabores;
 	}
-
-	public String getSaborSeleccionado() {
-		return saborSeleccionado;
-	}
-
-	public void setSaborSeleccionado(String saborSeleccionado) {
-		this.saborSeleccionado = saborSeleccionado;
-	}
-
 	public Double getPuntuacion() {
 		return puntuacion;
 	}
@@ -197,14 +187,6 @@ public class Producto implements Serializable{
 		this.pedidos = pedidos;
 	}
 
-	public List<Cesta> getCesta() {
-		return cesta;
-	}
-
-	public void setCesta(List<Cesta> cesta) {
-		this.cesta = cesta;
-	}
-
 	public Double getPrecioFinal() {
 		return precioFinal;
 	}
@@ -213,12 +195,20 @@ public class Producto implements Serializable{
 		this.precioFinal = precioFinal;
 	}
 
-	public Integer getCantidad() {
-		return cantidad;
+	public List<ProductoCesta> getProductosCesta() {
+		return productosCesta;
 	}
 
-	public void setCantidad(Integer cantidad) {
-		this.cantidad = cantidad;
+	public void setProductosCesta(List<ProductoCesta> productosCesta) {
+		this.productosCesta = productosCesta;
+	}
+
+	public CategoriaPadre getCategoriaPadre() {
+		return categoriaPadre;
+	}
+
+	public void setCategoriaPadre(CategoriaPadre categoriaPadre) {
+		this.categoriaPadre = categoriaPadre;
 	}
 
 	public Categoria getCategoria() {
@@ -235,6 +225,14 @@ public class Producto implements Serializable{
 
 	public void setSubCategoria(SubCategoria subCategoria) {
 		this.subCategoria = subCategoria;
+	}
+
+	public String getNombreEng() {
+		return nombreEng;
+	}
+
+	public void setNombreEng(String nombreEng) {
+		this.nombreEng = nombreEng;
 	}
 	
 	

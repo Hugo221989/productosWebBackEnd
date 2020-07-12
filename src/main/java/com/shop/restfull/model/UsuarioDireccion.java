@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,9 +42,9 @@ public class UsuarioDireccion implements Serializable{
 	
 	@Column(name = "datos_adicionales")
 	private String datosAdicionales;
-	
-	@ManyToOne
-	@JoinColumn(name = "FK_USUARIO", referencedColumnName = "id")
+
+	@OneToOne
+	@JoinColumn(name = "FK_USUARIO", updatable = false, nullable = false)
 	@JsonIgnore
 	private Usuario usuario;
 
@@ -119,6 +120,4 @@ public class UsuarioDireccion implements Serializable{
 		this.usuario = usuario;
 	}
 
-	
-	
 }

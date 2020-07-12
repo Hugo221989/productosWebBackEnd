@@ -16,7 +16,6 @@ public class SaborServiceImpl implements ISaborService {
 	
 	@Override
 	public List<Sabor> obtenerListaSabores() {
-		// TODO Auto-generated method stub
 		return this.saborRepository.findAll();
 	}
 

@@ -43,17 +43,35 @@ public class ValorNutricional implements Serializable{
 	
 	private String ingredientes;
 	
+	@Column(name = "ingredientes_eng")
+	private String ingredientesEng;
+	
 	@Column(name = "otros_ingredientes")
 	private String otrosIngredientes;
 	
+	@Column(name = "otros_ingredientes_eng")
+	private String otrosIngredientesEng;
+	
 	private String conservacion;
 	
+	@Column(name = "conservacion_eng")
+	private String conservacionEng;
+	
 	private String alergias;
+	
+	@Column(name = "alergias_eng")
+	private String alergiasEng;
 	
 	@Column(name = "modo_empleo")
 	private String modoEmpleo;
 	
+	@Column(name = "modo_empleo_eng")
+	private String modoEmpleoEng;
+	
 	private String advertencias;
+	
+	@Column(name = "advertencias_eng")
+	private String advertenciasEng;
 	
 	@OneToOne
     @JoinColumn(name = "FK_PRODUCTO", updatable = false, nullable = false)
@@ -162,6 +180,54 @@ public class ValorNutricional implements Serializable{
 
 	public void setProducto(Producto producto) {
 		this.producto = producto;
+	}
+
+	public String getIngredientesEng() {
+		return ingredientesEng;
+	}
+
+	public void setIngredientesEng(String ingredientesEng) {
+		this.ingredientesEng = ingredientesEng;
+	}
+
+	public String getOtrosIngredientesEng() {
+		return otrosIngredientesEng;
+	}
+
+	public void setOtrosIngredientesEng(String otrosIngredientesEng) {
+		this.otrosIngredientesEng = otrosIngredientesEng;
+	}
+
+	public String getConservacionEng() {
+		return conservacionEng;
+	}
+
+	public void setConservacionEng(String conservacionEng) {
+		this.conservacionEng = conservacionEng;
+	}
+
+	public String getAlergiasEng() {
+		return alergiasEng;
+	}
+
+	public void setAlergiasEng(String alergiasEng) {
+		this.alergiasEng = alergiasEng;
+	}
+
+	public String getModoEmpleoEng() {
+		return modoEmpleoEng;
+	}
+
+	public void setModoEmpleoEng(String modoEmpleoEng) {
+		this.modoEmpleoEng = modoEmpleoEng;
+	}
+
+	public String getAdvertenciasEng() {
+		return advertenciasEng;
+	}
+
+	public void setAdvertenciasEng(String advertenciasEng) {
+		this.advertenciasEng = advertenciasEng;
 	}
 	
 	

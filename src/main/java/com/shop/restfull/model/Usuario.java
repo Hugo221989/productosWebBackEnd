@@ -59,18 +59,20 @@ public class Usuario implements Serializable{
 	@JoinColumn(name = "genero")
 	private Genero genero;
 	
-	@OneToMany(mappedBy = "usuario")
-    private List<UsuarioDireccion> direccion = new ArrayList<>();
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private UsuarioDireccion direccion;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+	@JsonIgnore
     private List<Pedido> pedidos;
 	
-	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
     private Cesta cesta;
 	
-	public void addToDirection(UsuarioDireccion usuarioDireccion) {
-		direccion.add(usuarioDireccion);
-	}
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+    private RegistrationToken registrationToken;
 	
 	public int getId() {
 		return id;
@@ -88,7 +90,7 @@ public class Usuario implements Serializable{
 		return apellido;
 	}
 	public void setApellido(String apellido) {
-		this.apellido = apellido;
+		this.apellido = apellido; 
 	}
 	public Date getNacimiento() {
 		return nacimiento;
@@ -114,11 +116,20 @@ public class Usuario implements Serializable{
 	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
-	public List<UsuarioDireccion> getDireccion() {
+	public UsuarioDireccion getDireccion() {
 		return direccion;
 	}
-	public void setDireccion(List<UsuarioDireccion> direccion) {
+
+	public void setDireccion(UsuarioDireccion direccion) {
 		this.direccion = direccion;
+	}
+
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+	public Boolean getEmailConfirmado() {
+		return emailConfirmado;
 	}
 
 	public List<Pedido> getPedidos() {
@@ -127,12 +138,7 @@ public class Usuario implements Serializable{
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
-	public Cesta getPayment() {
-		return cesta;
-	}
-	public void setPayment(Cesta payment) {
-		this.cesta = payment;
-	}
+
 	public Boolean isAdmin() {
 		return admin;
 	}
@@ -145,6 +151,7 @@ public class Usuario implements Serializable{
 	public void setEmailConfirmado(Boolean emailConfirmado) {
 		this.emailConfirmado = emailConfirmado;
 	}
+	@JsonIgnore
 	public Cesta getCesta() {
 		return cesta;
 	}
@@ -156,6 +163,12 @@ public class Usuario implements Serializable{
 	}
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+	public RegistrationToken getRegistrationToken() {
+		return registrationToken;
+	}
+	public void setRegistrationToken(RegistrationToken registrationToken) {
+		this.registrationToken = registrationToken;
 	}
 	
 	

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,13 +34,26 @@ public class Pedido implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
+	@Column(name = "num_pedido")
+	private String numPedido;
+	
+	@ManyToOne
+	@JoinColumn(name = "FK_PEDIDO_METODO_ENVIO", referencedColumnName = "id")
+	private MetodoEnvio metodoEnvio;
+	
+	@ManyToOne
+	@JoinColumn(name = "FK_PEDIDO_METODO_PAGO", referencedColumnName = "id")
+	private MetodoPago metodoPago;
+	
+	private String destinatario;
 	
 	private Integer cantidadProductos;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaPedido;
 	
-	private Integer precioTotal;
+	private Double precioTotal;
 	
 	private boolean finalizado;
 	
@@ -56,8 +71,10 @@ public class Pedido implements Serializable{
 	        inverseJoinColumns = @JoinColumn(name="FK_PRODUCTO", nullable = false)
 	    )
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JsonIgnore
     private List<Producto> productos;
+	
+	@Column(name = "precio_envio")
+	private Double precioEnvio;
 
 	public int getId() {
 		return id;
@@ -83,12 +100,20 @@ public class Pedido implements Serializable{
 		this.fechaPedido = fechaPedido;
 	}
 
-	public Integer getPrecioTotal() {
+	public Double getPrecioTotal() {
 		return precioTotal;
 	}
 
-	public void setPrecioTotal(Integer precioTotal) {
+	public void setPrecioTotal(Double precioTotal) {
 		this.precioTotal = precioTotal;
+	}
+
+	public Double getPrecioEnvio() {
+		return precioEnvio;
+	}
+
+	public void setPrecioEnvio(Double precioEnvio) {
+		this.precioEnvio = precioEnvio;
 	}
 
 	public Usuario getUsuario() {
@@ -138,6 +163,37 @@ public class Pedido implements Serializable{
 	public void setEnviado(boolean enviado) {
 		this.enviado = enviado;
 	}
-	
-	
+
+	public String getNumPedido() {
+		return numPedido;
+	}
+
+	public void setNumPedido(String numPedido) {
+		this.numPedido = numPedido;
+	}
+
+	public MetodoEnvio getMetodoEnvio() {
+		return metodoEnvio;
+	}
+
+	public void setMetodoEnvio(MetodoEnvio metodoEnvio) {
+		this.metodoEnvio = metodoEnvio;
+	}
+
+	public String getDestinatario() {
+		return destinatario;
+	}
+
+	public void setDestinatario(String destinatario) {
+		this.destinatario = destinatario;
+	}
+
+	public MetodoPago getMetodoPago() {
+		return metodoPago;
+	}
+
+	public void setMetodoPago(MetodoPago metodoPago) {
+		this.metodoPago = metodoPago;
+	}
+
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +30,9 @@ public class SubCategoria implements Serializable{
 	private int id;
 	
 	private String nombre;
+	
+	@Column(name = "nombre_eng")
+	private String nombreEng;
 	
 	@ManyToOne
 	@JoinColumn(name = "FK_CATEGORIA", referencedColumnName = "id")
@@ -78,6 +82,14 @@ public class SubCategoria implements Serializable{
 
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	public String getNombreEng() {
+		return nombreEng;
+	}
+
+	public void setNombreEng(String nombreEng) {
+		this.nombreEng = nombreEng;
 	}
 
 

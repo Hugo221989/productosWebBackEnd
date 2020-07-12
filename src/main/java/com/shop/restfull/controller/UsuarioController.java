@@ -12,15 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.shop.restfull.model.Cesta;
 import com.shop.restfull.model.Genero;
 import com.shop.restfull.model.Usuario;
 import com.shop.restfull.model.UsuarioDireccion;
-import com.shop.restfull.model.producto.Producto;
-import com.shop.restfull.service.ICestaService;
 import com.shop.restfull.service.IGeneroService;
-import com.shop.restfull.service.IProductoService;
 import com.shop.restfull.service.IUsuarioDireccionService;
 import com.shop.restfull.service.IUsuarioService;
 
@@ -37,13 +32,9 @@ public class UsuarioController {
 	@Autowired
 	private IUsuarioService usuarioService;
 	@Autowired
-	private ICestaService cestaService;
-	@Autowired
 	private IGeneroService generoService;
 	@Autowired
 	private IUsuarioDireccionService usuarioDireccionService;
-	@Autowired
-	private IProductoService productoService;
 	
 	@ApiOperation(value = "Obtener usuario", notes = "Este servicio web obtiene los datos del usuario.", response = Usuario.class, responseContainer = "Usuario")
 	@GetMapping("/obtenerUsuario")
@@ -69,7 +60,7 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuario);
 	}
 	
-	@ApiOperation(value = "Editar usuario", notes = "Este servicio web edita los datos del usuario.", response = Void.class, responseContainer = "Usuario")
+	@ApiOperation(value = "Editar usuario", notes = "Este servicio web edita los datos del usuario.", response = Void.class, responseContainer = "Void")
 	@PostMapping("/eliminarUsuario")
 	public ResponseEntity<Void> eliminarUsuario(@ApiParam(value = "Usuario", required = true) @RequestBody(required = true) Usuario usuarioInput){
 		
@@ -77,51 +68,14 @@ public class UsuarioController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@ApiOperation(value = "Obtener generos", notes = "Este servicio web obtiene los diferentes generos.", response = Genero.class, responseContainer = "Usuario")
+	@ApiOperation(value = "Obtener generos", notes = "Este servicio web obtiene los diferentes generos.", response = Genero.class, responseContainer = "Genero")
 	@GetMapping("/obtenerGeneros")
 	public ResponseEntity<List<Genero>> obtenerGeneros(){
 		
 		return ResponseEntity.ok(generoService.obtenerListaGeneros());
 	}
-	
-	@ApiOperation(value = "Obtener cesta", notes = "Este servicio web obtiene la cesta del usuario.", response = Cesta.class, responseContainer = "Usuario")
-	@GetMapping("/obtenerCesta")
-	public ResponseEntity<Cesta> obtenerCesta(@ApiParam(value = "email", required = true) @RequestParam(required = true) String email){
-		
-		Usuario usuario = usuarioService.obtenerUsuario(email).orElse(null);
-		
-		return ResponseEntity.ok(cestaService.obtenerCesta(usuario.getId()));
-	}
-	
-	@ApiOperation(value = "Obtener productos", notes = "Este servicio web obtiene los productos.", response = Producto.class, responseContainer = "Usuario")
-	@GetMapping("/obtenerProductos")
-	public ResponseEntity<List<Producto>> obtenerProductos(@ApiParam(value = "buscador", required = false) @RequestParam(required = false) String buscador){
-		
-		//Usuario usuario = usuarioService.obtenerUsuario(email).orElse(null);
-		if(buscador != null && !buscador.equals("null") && !buscador.trim().equals("")) {
-			return ResponseEntity.ok(productoService.obtenerListaProductosBuscador(buscador));
-		}
-		return ResponseEntity.ok(productoService.obtenerListaProductos());
-	}
-	
-	@ApiOperation(value = "Obtener productos por categoria", notes = "Este servicio web obtiene los productos filtrados por subcategoria.", response = Producto.class, responseContainer = "Usuario")
-	@GetMapping("/obtenerProductosBySubCategoria")
-	public ResponseEntity<List<Producto>> obtenerProductosBySubCategoria(@ApiParam(value = "subCategoria", required = false) @RequestParam(required = false) String subCategoria){
-		
-		//Usuario usuario = usuarioService.obtenerUsuario(email).orElse(null);
-		if(subCategoria != null && !subCategoria.equals("null") && !subCategoria.trim().equals("")) {
-			return ResponseEntity.ok(productoService.obtenerListaProductosBySubCategoria(subCategoria));
-		}
-		return ResponseEntity.ok(productoService.obtenerListaProductos());
-	}
-	
-	@ApiOperation(value = "Obtener productos", notes = "Este servicio web obtiene los productos.", response = Producto.class, responseContainer = "Usuario")
-	@GetMapping("/obtenerProductoById")
-	public ResponseEntity <Producto> obtenerProductoById(@ApiParam(value = "idProducto", required = true) @RequestParam(required = true) int idProducto){
-		return ResponseEntity.ok(productoService.obtenerProductoById(idProducto).orElse(null));
-	}
-	
-	@ApiOperation(value = "Obtener productos", notes = "Este servicio web obtiene las direcciones del usuario.", response = UsuarioDireccion.class, responseContainer = "Usuario")
+
+	@ApiOperation(value = "Obtener productos", notes = "Este servicio web obtiene las direcciones del usuario.", response = UsuarioDireccion.class, responseContainer = "UsuarioDireccion")
 	@GetMapping("/obtenerDireccionesUsuario")
 	public ResponseEntity<List<UsuarioDireccion>> obtenerDireccionesUsuario(@ApiParam(value = "email", required = true) @RequestParam(required = true) String email){
 		
@@ -129,7 +83,5 @@ public class UsuarioController {
 		
 		return ResponseEntity.ok(usuarioDireccionService.obtenerDireccionesUsuario(usuario.getId()));
 	}
-	
-	
 
 }

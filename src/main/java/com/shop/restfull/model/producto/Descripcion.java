@@ -35,6 +35,21 @@ public class Descripcion implements Serializable{
 	
 	private String beneficios;
 	
+	@Column(name = "titulo_eng")
+	private String tituloEng;
+	
+	@Column(name = "subtitulo_eng")
+	private String subtituloEng;
+	
+	@Column(name = "apartado_eng")
+	private String apartadoEng;
+	
+	@Column(name = "caracteristicas_eng")
+	private String caracteristicasEng;
+	
+	@Column(name = "beneficios_eng")
+	private String beneficiosEng;
+	
 	@OneToOne
     @JoinColumn(name = "FK_PRODUCTO", updatable = false, nullable = false)
 	@JsonIgnore
@@ -94,6 +109,46 @@ public class Descripcion implements Serializable{
 
 	public void setProducto(Producto producto) {
 		this.producto = producto;
+	}
+
+	public String getTituloEng() {
+		return tituloEng;
+	}
+
+	public void setTituloEng(String tituloEng) {
+		this.tituloEng = tituloEng;
+	}
+
+	public String getSubtituloEng() {
+		return subtituloEng;
+	}
+
+	public void setSubtituloEng(String subtituloEng) {
+		this.subtituloEng = subtituloEng;
+	}
+
+	public String getApartadoEng() {
+		return apartadoEng;
+	}
+
+	public void setApartadoEng(String apartadoEng) {
+		this.apartadoEng = apartadoEng;
+	}
+
+	public String getCaracteristicasEng() {
+		return caracteristicasEng;
+	}
+
+	public void setCaracteristicasEng(String caracteristicasEng) {
+		this.caracteristicasEng = caracteristicasEng;
+	}
+
+	public String getBeneficiosEng() {
+		return beneficiosEng;
+	}
+
+	public void setBeneficiosEng(String beneficiosEng) {
+		this.beneficiosEng = beneficiosEng;
 	}
 	
 }

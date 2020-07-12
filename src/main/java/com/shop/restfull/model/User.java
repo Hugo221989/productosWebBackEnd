@@ -34,6 +34,8 @@ public class User {
 	
 	@Column(name = "remember_login")
 	private Boolean rememberLogin;
+	
+	private Boolean enabled;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
@@ -44,10 +46,12 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, String email, String password) {
+	public User(String username, String email, String password, Boolean rememberLogin, Boolean enabled) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.rememberLogin = rememberLogin;
+		this.enabled = enabled;
 	}
 
 	public Long getId() {
@@ -96,6 +100,14 @@ public class User {
 
 	public void setRememberLogin(Boolean rememberLogin) {
 		this.rememberLogin = rememberLogin;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 	
 }

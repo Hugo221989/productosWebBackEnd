@@ -1,5 +1,9 @@
 package com.shop.restfull.service;
 
-public interface IPedidoService {
+import java.util.List;
 
+import com.shop.restfull.model.Pedido;
+
+public interface IPedidoService {
+	public List<Pedido> obtenerPedidosByUsuarioId(int idUsuario);
 }

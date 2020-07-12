@@ -3,7 +3,6 @@ package com.shop.restfull.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.shop.restfull.model.UsuarioDireccion;
@@ -17,19 +16,16 @@ public class UsuarioDireccionServiceImpl implements IUsuarioDireccionService {
 
 	@Override
 	public List<UsuarioDireccion> obtenerDireccionesUsuario(int idUsuario) {
-		// TODO Auto-generated method stub
 		return this.usuarioDireccionRepository.findUsuarioDireccionByUsuarioId(idUsuario);
 	}
 
 	@Override
 	public UsuarioDireccion crearUsuarioDireccion(UsuarioDireccion usuarioDireccion) {
-		// TODO Auto-generated method stub
 		return this.usuarioDireccionRepository.saveAndFlush(usuarioDireccion);
 	}
 
 	@Override
 	public void eliminarDireccionesUsuario(int idUsuario) {
-		// TODO Auto-generated method stub
 		this.usuarioDireccionRepository.deleteUsuarioDireccionByUsuarioId(idUsuario);
 	}
 
