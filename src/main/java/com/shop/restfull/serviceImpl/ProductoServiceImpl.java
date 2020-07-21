@@ -79,12 +79,12 @@ public class ProductoServiceImpl implements IProductoService {
 		Categoria categoria;
 		if(prod.getCategoria() != null) {
 			categoria = prod.getCategoria();
-			catDto.setCategoriaKey(categoria.getKey());
+			catDto.setCategoriaKey(categoria.getKkey());
 			catDto.setCategoriaNombre(categoria.getNombre());
 			catDto = this.fillCatProductoDtoCategoriaPadreFromCategoria(catDto, categoria);
 		} 
 		if(prod.getSubCategoria() != null) {
-			catDto.setSubCategoriaKey(prod.getSubCategoria().getKey());
+			catDto.setSubCategoriaKey(prod.getSubCategoria().getKkey());
 			catDto.setSubCategoriaNombre(prod.getSubCategoria().getNombre());
 		}		
 		return catDto;
@@ -92,7 +92,7 @@ public class ProductoServiceImpl implements IProductoService {
 	
 	public CatProductoDto fillCatProductoDtoCategoriaPadreFromCategoria(CatProductoDto catDto, Categoria categoria) {
 		if(categoria.getCategoriaPadre() != null) {
-			catDto.setCategoriaPadreKey(categoria.getCategoriaPadre().getKey());
+			catDto.setCategoriaPadreKey(categoria.getCategoriaPadre().getKkey());
 			catDto.setCategoriaPadreNombre(categoria.getCategoriaPadre().getNombre());
 			catDto.setCategoriaPadreModulo(categoria.getCategoriaPadre().getModulo());
 			catDto.setCategoriaPadreId(categoria.getCategoriaPadre().getId());

@@ -20,6 +20,11 @@ public class ProductoDto {
 	private Foto foto;
 	
 	
+	
+	public ProductoDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public ProductoDto(int id, String categoriaPadre, String categoria, String subCategoria, String nombre,
 			String nombreEng, Double precio, Double tamano, Double puntuacion, Boolean disponible, Double descuento,
 			Double precioFinal, String descripcion, Foto foto) {

@@ -15,21 +15,21 @@ import com.shop.restfull.model.producto.Producto;
 @Transactional
 public interface ProductoRepository extends JpaRepository<Producto, Integer>{
 	
-	 final String CONSULTA_CATEGORICA = "SELECT new com.shop.restfull.dto.ProductoDto(p.id, padre.key, cat.key, subcat.key, p.nombre, p.nombreEng, p.precio, p.tamano, p.puntuacion, p.disponible, " + 
+	 final String CONSULTA_CATEGORICA = "SELECT new com.shop.restfull.dto.ProductoDto(p.id, padre.kkey, cat.kkey, subcat.kkey, p.nombre, p.nombreEng, p.precio, p.tamano, p.puntuacion, p.disponible, " + 
 	 		"p.descuento, p.precioFinal, des.titulo, f) " +
 	 		"FROM Producto p " +
 	 		"LEFT JOIN CategoriaPadre padre ON p.categoriaPadre.id = padre.id " +
 	 		"LEFT JOIN Categoria cat ON p.categoria.id = cat.id " +
 	 		"LEFT JOIN SubCategoria subcat ON p.subCategoria.id = subcat.id " +
-	 		"LEFT JOIN Foto f ON f.productos.id = p.id " +
+	 		"LEFT JOIN Foto f ON f.productos.id = p.id AND f.principal = TRUE " +
 	 		"LEFT JOIN Descripcion des ON des.producto.id = p.id ";
 
-	 final String WHERE = "WHERE f.principal = TRUE and ";
-	 final String CATEGORIA_PADRE = "p.categoriaPadre.key = ?1";
-	 final String CATEGORIA = "p.categoria.key = ?1";
-	 final String SUB_CATEGORIA = "p.subCategoria.key = ?1";
+	 final String WHERE = "WHERE ";
+	 final String CATEGORIA_PADRE = "p.categoriaPadre.kkey = ?1";
+	 final String CATEGORIA = "p.categoria.kkey = ?1";
+	 final String SUB_CATEGORIA = "p.subCategoria.kkey = ?1";
 	 final String BUSCADOR = "p.nombre LIKE CONCAT('%',?1,'%')";
-	 final String RELATED = "padre.key = ?1";
+	 final String RELATED = "padre.kkey = ?1";
 	 final String BY_ID = "p.id = ?1";
 	 	
 	@Cacheable("all_products")
@@ -48,14 +48,14 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer>{
 
 	@Cacheable("products_by_categoria_padre")
 	@Query(CONSULTA_CATEGORICA+WHERE+CATEGORIA_PADRE)
-	public List<ProductoDto> findProductsByCategoriaPadre(String categoria);
+	public List<ProductoDto> findProductsByCategoriaPadre(String categoriaPadreKey);
 
 	@Cacheable("products_by_categoria")
 	@Query(CONSULTA_CATEGORICA+WHERE+CATEGORIA)
-	public List<ProductoDto> findProductsByCategoria(String categoria);
+	public List<ProductoDto> findProductsByCategoria(String categoriaKey);
 
 	@Cacheable("products_by_subcategoria")
 	@Query(CONSULTA_CATEGORICA+WHERE+SUB_CATEGORIA)
-	public List<ProductoDto> findProductsBySubCategoria(String subCategoria);
+	public List<ProductoDto> findProductsBySubCategoria(String subCategoriaKey);
 	
 }

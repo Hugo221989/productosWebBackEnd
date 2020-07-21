@@ -41,15 +41,16 @@ public class ValorNutricional implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "valorNutricional")
 	private List<InfoVitaminas> infoVitaminas;
 	
+	@Column(name = "ingredientes", columnDefinition="TEXT")
 	private String ingredientes;
 	
-	@Column(name = "ingredientes_eng")
+	@Column(name = "ingredientes_eng", columnDefinition="TEXT")
 	private String ingredientesEng;
 	
-	@Column(name = "otros_ingredientes")
+	@Column(name = "otros_ingredientes", columnDefinition="TEXT")
 	private String otrosIngredientes;
 	
-	@Column(name = "otros_ingredientes_eng")
+	@Column(name = "otros_ingredientes_eng", columnDefinition="TEXT")
 	private String otrosIngredientesEng;
 	
 	private String conservacion;
@@ -57,9 +58,10 @@ public class ValorNutricional implements Serializable{
 	@Column(name = "conservacion_eng")
 	private String conservacionEng;
 	
+	@Column(name = "alergias", columnDefinition="TEXT")
 	private String alergias;
 	
-	@Column(name = "alergias_eng")
+	@Column(name = "alergias_eng", columnDefinition="TEXT")
 	private String alergiasEng;
 	
 	@Column(name = "modo_empleo")
@@ -68,9 +70,10 @@ public class ValorNutricional implements Serializable{
 	@Column(name = "modo_empleo_eng")
 	private String modoEmpleoEng;
 	
+	@Column(name = "advertencias", columnDefinition="TEXT")
 	private String advertencias;
 	
-	@Column(name = "advertencias_eng")
+	@Column(name = "advertencias_eng", columnDefinition="TEXT")
 	private String advertenciasEng;
 	
 	@OneToOne

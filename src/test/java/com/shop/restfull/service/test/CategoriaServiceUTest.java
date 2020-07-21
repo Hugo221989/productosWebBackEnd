@@ -85,14 +85,14 @@ public class CategoriaServiceUTest {
 	public void givenCategoriaPadreShouldReturnCategoriaPadreDto() {
 		CategoriaPadre categoriaPadreEntity = this.createCategoriaPadre();	
 		CategoriaPadreDto categoriaPadreDtoMapped = categoriaService.fillCategoriaPadreDto(categoriaPadreEntity);
-		assertThat(categoriaPadreEntity.getKey()).isEqualTo(categoriaPadreDtoMapped.getKey());
+		assertThat(categoriaPadreEntity.getKkey()).isEqualTo(categoriaPadreDtoMapped.getKey());
 	}
 	@Test
 	public void givenCategoriaPadreShouldReturnCategoriaPadreDtoFail() {
 		CategoriaPadre categoriaPadreEntity = this.createCategoriaPadre();	
 		CategoriaPadreDto categoriaPadreDtoMapped = categoriaService.fillCategoriaPadreDto(categoriaPadreEntity);
-		categoriaPadreEntity.setKey("modificada");
-		assertThat(categoriaPadreEntity.getKey()).isNotEqualTo(categoriaPadreDtoMapped.getKey());
+		categoriaPadreEntity.setKkey("modificada");
+		assertThat(categoriaPadreEntity.getKkey()).isNotEqualTo(categoriaPadreDtoMapped.getKey());
 	}
 	
 	@Test
@@ -156,7 +156,7 @@ public class CategoriaServiceUTest {
 	CategoriaPadre createCategoriaPadre() {
 		CategoriaPadre categoriaPadreEntity = new CategoriaPadre();
 		categoriaPadreEntity.setId(1);
-		categoriaPadreEntity.setKey(CAT_PADRE_KEY);
+		categoriaPadreEntity.setKkey(CAT_PADRE_KEY);
 		categoriaPadreEntity.setModulo(CAT_PADRE_MODULO);
 		categoriaPadreEntity.setNombre(CAT_PADRE_NOMBRE);
 		categoriaPadreEntity.setNombreEng(CAT_PADRE_NOMBRE_ENG);
@@ -167,7 +167,7 @@ public class CategoriaServiceUTest {
 	Categoria createCategoria() {
 		Categoria categoria = new Categoria();
 		categoria.setId(1);
-		categoria.setKey("proteinas");
+		categoria.setKkey("proteinas");
 		categoria.setNombre("aislado");
 		categoria.setNombreEng("isolated");
 		categoria.setCategoriaPadre(categoriaPadre);
@@ -180,7 +180,7 @@ public class CategoriaServiceUTest {
 		subCategoria = new SubCategoria();
 		subCategoria.setId(1);
 		subCategoria.setCategoria(categoria);
-		subCategoria.setKey("suero");
+		subCategoria.setKkey("suero");
 		subCategoria.setNombre("suero");
 		subCategoria.setNombreEng("whey");
 		subCategorias.add(subCategoria);

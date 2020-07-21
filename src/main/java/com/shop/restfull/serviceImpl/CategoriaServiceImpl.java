@@ -36,7 +36,7 @@ public class CategoriaServiceImpl implements ICategoriaService {
 		if(categoriaPadre == null)return null;
 		CategoriaPadreDto categoriaPadreReturn = new CategoriaPadreDto();
 		categoriaPadreReturn.setId(categoriaPadre.getId());
-		categoriaPadreReturn.setKey(categoriaPadre.getKey());
+		categoriaPadreReturn.setKey(categoriaPadre.getKkey());
 		categoriaPadreReturn.setModulo(categoriaPadre.getModulo());
 		categoriaPadreReturn.setNombre(categoriaPadre.getNombre());
 		categoriaPadreReturn.setNombreEng(categoriaPadre.getNombreEng());
@@ -54,7 +54,7 @@ public class CategoriaServiceImpl implements ICategoriaService {
 		if(cat == null)return null;
 		CategoriaDto categoria = new CategoriaDto();
 		categoria.setId(cat.getId());
-		categoria.setKey(cat.getKey());
+		categoria.setKey(cat.getKkey());
 		categoria.setNombre(cat.getNombre());
 		categoria.setNombreEng(cat.getNombreEng());
 		subCategorias = new ArrayList<>();
@@ -71,7 +71,7 @@ public class CategoriaServiceImpl implements ICategoriaService {
 		if(subCat == null)return null;
 		SubCategoriaDto subCategoria = new SubCategoriaDto();
 		subCategoria.setId(subCat.getId());
-		subCategoria.setKey(subCat.getKey());
+		subCategoria.setKey(subCat.getKkey());
 		subCategoria.setNombre(subCat.getNombre());
 		subCategoria.setNombreEng(subCat.getNombreEng());
 		return subCategoria;

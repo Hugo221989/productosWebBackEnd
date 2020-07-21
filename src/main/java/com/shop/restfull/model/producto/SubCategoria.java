@@ -42,7 +42,7 @@ public class SubCategoria implements Serializable{
 	@OneToMany(mappedBy = "subCategoria")
     private List<Producto> productos = new ArrayList<>();
 	
-	private String key;
+	private String kkey;
 
 	public int getId() {
 		return id;
@@ -76,12 +76,12 @@ public class SubCategoria implements Serializable{
 		this.productos = productos;
 	}
 
-	public String getKey() {
-		return key;
+	public String getKkey() {
+		return kkey;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setKkey(String kkey) {
+		this.kkey = kkey;
 	}
 
 	public String getNombreEng() {

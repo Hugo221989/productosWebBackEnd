@@ -29,8 +29,10 @@ public class Descripcion implements Serializable{
 	
 	private String subtitulo;
 	
+	@Column(name="apartado", columnDefinition="TEXT")
 	private String apartado;
 	
+	@Column(name = "caracteristicas", columnDefinition="TEXT")
 	private String caracteristicas;
 	
 	private String beneficios;
@@ -41,10 +43,10 @@ public class Descripcion implements Serializable{
 	@Column(name = "subtitulo_eng")
 	private String subtituloEng;
 	
-	@Column(name = "apartado_eng")
+	@Column(name = "apartado_eng", columnDefinition="TEXT")
 	private String apartadoEng;
 	
-	@Column(name = "caracteristicas_eng")
+	@Column(name = "caracteristicas_eng", columnDefinition="TEXT")
 	private String caracteristicasEng;
 	
 	@Column(name = "beneficios_eng")

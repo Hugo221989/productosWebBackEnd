@@ -46,7 +46,7 @@ public class Categoria implements Serializable{
 	@JsonIgnore
 	private CategoriaPadre categoriaPadre;
 	
-	private String key;
+	private String kkey;
 
 	public int getId() {
 		return id;
@@ -88,12 +88,12 @@ public class Categoria implements Serializable{
 		this.categoriaPadre = categoriaPadre;
 	}
 
-	public String getKey() {
-		return key;
+	public String getKkey() {
+		return kkey;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setKkey(String kkey) {
+		this.kkey = kkey;
 	}
 
 	public String getNombreEng() {

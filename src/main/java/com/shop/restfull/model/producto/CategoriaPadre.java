@@ -36,7 +36,7 @@ public class CategoriaPadre implements Serializable{
 	@OneToMany(mappedBy = "categoriaPadre")
     private List<Producto> productos = new ArrayList<>();
 	
-	private String key;
+	private String kkey;
 	
 	private String modulo;
 
@@ -64,12 +64,12 @@ public class CategoriaPadre implements Serializable{
 		this.categoria = categoria;
 	}
 
-	public String getKey() {
-		return key;
+	public String getKkey() {
+		return kkey;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setKkey(String kkey) {
+		this.kkey = kkey;
 	}
 
 	public String getNombreEng() {
