@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.shop.restfull.dto.CustomerBasicDto;
 import com.shop.restfull.dto.CustomerDto;
@@ -70,6 +72,11 @@ public class ManagerController {
 		
 		List<CustomerBasicDto> customerBasicList;
 		customerBasicList = usuarioService.obtenerCustomerBasicList();
+		if(customerBasicList.size() < 1) {
+			throw new ResponseStatusException(
+					  HttpStatus.NO_CONTENT, "customer list empty"
+					);
+		}
 		for(CustomerBasicDto customerBasicDto : customerBasicList) {
 			Link selfLink = linkTo(methodOn(ManagerController.class).getCustomerBasic(String.valueOf(customerBasicDto.getId()))).withSelfRel();
 			customerBasicDto.add(selfLink);
@@ -85,6 +92,11 @@ public class ManagerController {
 		Integer customerId = Integer.parseInt(id);
 		CustomerDto customer = usuarioService.obtenerCustomerBasic(customerId);
 		
+		if(customer == null) {
+			throw new ResponseStatusException(
+					  HttpStatus.NOT_FOUND, "customer not found"
+					);
+		}
 		Link selfLinkDeleteUser = linkTo(methodOn(ManagerController.class).deleteCustomer(customerId)).withRel("delete");
 		customer.add(selfLinkDeleteUser);
 		Link selfLinkEditUser = linkTo(methodOn(ManagerController.class).updateCustomer(customer)).withRel("update");
