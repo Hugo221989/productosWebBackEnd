@@ -37,6 +37,12 @@ public class ProductoController {
 		return ResponseEntity.ok(productoService.obtenerProductoById(idProducto));
 	}
 	
+	@ApiOperation(value = "Obtener productos", notes = "Este servicio web obtiene todos los productos.", response = Producto.class, responseContainer = "Producto")
+	@GetMapping("/obtenerProductosList")
+	public ResponseEntity<List<ProductoDto>> obtenerProductosList(){
+		return ResponseEntity.ok(productoService.obtenerListaProductos());
+	}
+	
 	@ApiOperation(value = "Obtener productos", notes = "Este servicio web obtiene los productos.", response = Producto.class, responseContainer = "Usuario")
 	@GetMapping("/obtenerProductos")
 	public ResponseEntity<List<ProductoDto>> obtenerProductos(@ApiParam(value = "buscador", required = false) @RequestParam(required = false) String buscador){

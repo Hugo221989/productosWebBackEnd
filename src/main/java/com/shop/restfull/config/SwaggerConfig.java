@@ -1,5 +1,6 @@
 package com.shop.restfull.config;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -7,6 +8,10 @@ import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.hateoas.client.LinkDiscoverer;
+import org.springframework.hateoas.client.LinkDiscoverers;
+import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
+import org.springframework.plugin.core.SimplePluginRegistry;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.common.base.Predicates;
@@ -60,5 +65,12 @@ public class SwaggerConfig {
 				+ "plataformas de servicios que necesiten integrarse.")
 				.contact(new Contact("Hugo Onetto", "http://www.nutriciondeportiva.es", null)).version("1.0.0").build();
 	}
+	
+	@Bean
+    public LinkDiscoverers discoverers() {
+        List<LinkDiscoverer> plugins = new ArrayList<>();
+        plugins.add(new CollectionJsonLinkDiscoverer());
+        return new LinkDiscoverers(SimplePluginRegistry.create(plugins));
+    }
 
 }

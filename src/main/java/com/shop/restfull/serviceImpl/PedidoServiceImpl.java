@@ -14,6 +14,11 @@ public class PedidoServiceImpl implements IPedidoService {
 	
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	@Override
+	public List<Pedido> obtenerPedidos(){
+		return this.pedidoRepository.findAll();
+	}
 
 	@Override
 	public List<Pedido> obtenerPedidosByUsuarioId(int idUsuario) {

@@ -47,6 +47,11 @@ public class PedidoController {
 	@Autowired
 	private IUsuarioService usuarioService;
 	
+	@ApiOperation(value = "Obtener todos los pedidos realizados en la web", notes = "Este servicio web obtiene todos los pedidos.", response = Pedido.class, responseContainer = "Pedido")
+	@GetMapping("/obtenerPedidos")
+	public ResponseEntity <List<Pedido>> obtenerPedidos(){
+		return ResponseEntity.ok(pedidoService.obtenerPedidos());
+	}
 	
 	@ApiOperation(value = "Obtener pedidos de un usuario", notes = "Este servicio web obtiene los pedidos realizados por un usuario.", response = Pedido.class, responseContainer = "Pedido")
 	@GetMapping("/obtenerPedidosByUsuarioId")
